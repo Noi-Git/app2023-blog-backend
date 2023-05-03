@@ -45,4 +45,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['Admin', 'Guest', 'Blogger'], //use enum to create series of roles
   },
+  isFollowing: {
+    type: Boolean,
+    default: false,
+  },
+  isUnFollowing: {
+    type: Boolean,
+    default: false,
+  },
+  isAccountVerified: {
+    type: Boolean,
+    default: false,
+  },
+  accountVerificationToken: String,
+  accountVerificationTokenExpires: Date,
 })
