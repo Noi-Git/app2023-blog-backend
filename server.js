@@ -9,14 +9,8 @@ const app = express()
 dbConnect()
 // console.log(process.env)
 
-//create endpoints
-//(req, res) => {} <-- this is controller where action happen
-
 //Register
-app.post('/api/users/register', (req, res) => {
-  //business logic
-  res.json({ user: 'User Register' })
-})
+app.post('/api/users/register')
 
 //Login
 app.post('/api/users/login', (req, res) => {
@@ -30,3 +24,5 @@ app.get('/api/users', (req, res) => {
 
 const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server is runing on port ${PORT}`))
+
+// http://localhost:5001/api/users/register
