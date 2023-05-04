@@ -25,7 +25,7 @@ const logger = (req, res, next) => {
 app.use(logger)
 
 //Register
-app.use('/', usersRoutes)
+app.use('/api/users', usersRoutes)
 
 //Login
 app.post('/api/users/login', userLoginCtrl)
