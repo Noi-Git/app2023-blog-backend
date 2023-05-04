@@ -6,9 +6,9 @@ const userRegisterCtrl = async (req, res) => {
   //check if user exist
   const userExists = await User.findOne({ email: req?.body?.email })
 
-  if (userExists) {
-    throw new Error('User already exists')
-  }
+  // if (userExists) {
+  //   throw new Error('User already exists')
+  // }
 
   console.log(req.body)
   try {
