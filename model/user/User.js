@@ -59,4 +59,37 @@ const userSchema = new mongoose.Schema({
   },
   accountVerificationToken: String,
   accountVerificationTokenExpires: Date,
+  viewedBy: {
+    //database relationship ex. one to many, one to one
+    type: [
+      // add id of user who view
+      {
+        type: mongoose.Schema.Types.ObjectId, //save user id in the field
+        ref: 'User', // model you want to reference -- the user we want to push to the type:[] -- comes from User model
+      },
+    ],
+  },
+  followers: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+  },
+  following: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+  },
+  passwordChangeAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: false,
+  },
 })
