@@ -3,7 +3,6 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 const dbConnect = require('./config/db/dbConnect')
-const { userLoginCtrl } = require('./controllers/users/usersCtrl')
 const usersRoutes = require('./route/users/usersRoute')
 
 const app = express()
@@ -18,12 +17,10 @@ app.use(express.json())
 app.use('/api/users', usersRoutes)
 
 //Login
-app.post('/api/users/login', userLoginCtrl)
+// app.use('/api/users', )
 
 //fetch all users
-app.get('/api/users', (req, res) => {
-  res.json({ user: 'Fetch all user' })
-})
+// app.use('/api/users',)
 
 const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server is runing on port ${PORT}`))
