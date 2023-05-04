@@ -2,13 +2,13 @@ const User = require('../../model/user/User')
 const expressAsyncHandler = require('express-async-handler')
 
 // === Register user ===
-const userRegisterCtrl = async (req, res) => {
+const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
   //check if user exist
   const userExists = await User.findOne({ email: req?.body?.email })
 
-  // if (userExists) {
-  //   throw new Error('User already exists')
-  // }
+  if (userExists) {
+    throw new Error('User already exists')
+  }
 
   console.log(req.body)
   try {
@@ -22,7 +22,7 @@ const userRegisterCtrl = async (req, res) => {
   } catch (error) {
     res.json(error)
   }
-}
+})
 
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
