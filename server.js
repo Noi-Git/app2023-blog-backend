@@ -20,6 +20,10 @@ app.use(express.json())
 const logger = () => {
   console.log('I am a looger')
 }
+
+// === use custom middleware ===
+app.use(logger)
+
 //Register
 app.post('/api/users/register', userRegisterCtrl)
 
