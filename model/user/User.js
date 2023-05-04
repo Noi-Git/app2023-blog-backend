@@ -104,3 +104,8 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 )
+
+//Compile schema into model
+const User = mongoose.model('User', userSchema)
+
+module.exports = User
