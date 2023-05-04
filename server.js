@@ -14,16 +14,6 @@ dbConnect()
 //Middleware
 app.use(express.json())
 
-// === custom middleware ===
-const logger = (req, res, next) => {
-  //need to call next before move on to the next middleware on the pipe line
-  console.log('I am a looger')
-  next()
-}
-
-// === use custom middleware ===
-app.use(logger)
-
 //Register
 app.use('/api/users', usersRoutes)
 
