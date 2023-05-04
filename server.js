@@ -20,8 +20,12 @@ app.post('/api/users/register', (req, res) => {
 
 //Login
 app.post('/api/users/login', (req, res) => {
-  //business logic
   res.json({ user: 'User Login' })
+})
+
+//fetch all users
+app.get('/api/users', (req, res) => {
+  res.json({ user: 'Fetch all user' })
 })
 
 const PORT = process.env.PORT || 5001
