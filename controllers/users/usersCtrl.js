@@ -1,6 +1,7 @@
 const User = require('../../model/user/User')
+const expressAsyncHandler = require('express-async-handler')
 
-//Register
+// === Register user ===
 const userRegisterCtrl = async (req, res) => {
   console.log(req.body)
   try {
@@ -16,4 +17,15 @@ const userRegisterCtrl = async (req, res) => {
   }
 }
 
-module.exports = { userRegisterCtrl }
+// === Login user ===
+const userLoginCtrl = expressAsyncHandler(async (req, res) => {
+  //check if user exist
+  const user = await User.findOne({ email: req?.body?.email })
+
+  if (!user) {
+    throw new Error(`Please provide valid email or password`)
+  }
+  res.json('You are in') //if user exist
+})
+
+module.exports = { userRegisterCtrl, userLoginCtrl }
