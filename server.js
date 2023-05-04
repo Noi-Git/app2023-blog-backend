@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 const dbConnect = require('./config/db/dbConnect')
+const { userRegisterCtrl } = require('./controllers/users/usersCtrl')
 
 const app = express()
 
@@ -10,7 +11,7 @@ dbConnect()
 // console.log(process.env)
 
 //Register
-app.post('/api/users/register')
+app.post('/api/users/register', userRegisterCtrl)
 
 //Login
 app.post('/api/users/login', (req, res) => {
