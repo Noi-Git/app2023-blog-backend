@@ -10,6 +10,9 @@ const app = express()
 dbConnect()
 // console.log(process.env)
 
+//Middleware
+app.use(express.json)
+
 //Register
 app.post('/api/users/register', userRegisterCtrl)
 

@@ -2,6 +2,7 @@ const User = require('../../model/user/User')
 
 //Register
 const userRegisterCtrl = async (req, res) => {
+  console.log(req.body)
   try {
     const user = await User.create({
       firstName: 'Emma',
