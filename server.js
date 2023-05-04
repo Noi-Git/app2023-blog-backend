@@ -16,6 +16,10 @@ dbConnect()
 //Middleware
 app.use(express.json())
 
+// === custom middleware ===
+const logger = () => {
+  console.log('I am a looger')
+}
 //Register
 app.post('/api/users/register', userRegisterCtrl)
 
