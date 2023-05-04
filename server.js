@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const dbConnect = require('./config/db/dbConnect')
 const usersRoutes = require('./route/users/usersRoute')
+const { errorHandler } = require('./middlewares/error/errorHandler')
 
 const app = express()
 
@@ -16,11 +17,8 @@ app.use(express.json())
 //Register
 app.use('/api/users', usersRoutes)
 
-//Login
-// app.use('/api/users', )
-
-//fetch all users
-// app.use('/api/users',)
+/* ==== call errorHandler below all your routes === */
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server is runing on port ${PORT}`))
