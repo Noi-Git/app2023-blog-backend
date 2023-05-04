@@ -9,6 +9,7 @@ const userRegisterCtrl = async (req, res) => {
       email: 'Emma@gmail.com',
       password: '12345',
     })
+    res.json(user)
   } catch (error) {
     res.json(error)
   }
