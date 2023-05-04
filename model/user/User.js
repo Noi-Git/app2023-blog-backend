@@ -108,7 +108,11 @@ const userSchema = new mongoose.Schema(
 
 // === custom middleware to handle hasing password
 userSchema.pre('save', async function (next) {
-  console.log(this)
+  // console.log(this)
+
+  // hash password
+  const salt = (this.password = await bcrypt.genSalt(10))
+  this.password = await bcrypt.hash(this.password, salt)
   next()
 })
 
