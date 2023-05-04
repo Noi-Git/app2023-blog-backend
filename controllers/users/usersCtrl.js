@@ -2,14 +2,16 @@ const User = require('../../model/user/User')
 
 //Register
 const userRegisterCtrl = async (req, res) => {
-  const user = await User.create({
-    firstName: 'Emma',
-    lastName: 'Ben',
-    email: 'Emma@gmail.com',
-    password: 12345,
-  })
-
-  res.json({ user: 'User Registered' })
+  try {
+    const user = await User.create({
+      firstName: 'Emma',
+      lastName: 'Ben',
+      email: 'Emma@gmail.com',
+      password: '12345',
+    })
+  } catch (error) {
+    res.json(error)
+  }
 }
 
 module.exports = { userRegisterCtrl }

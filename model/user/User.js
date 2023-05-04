@@ -19,14 +19,14 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       required: [true, 'Email is required'],
-      type: Stirng,
+      type: String,
     },
     bio: {
       type: String,
     },
     password: {
       required: [true, 'Password is required'],
-      type: string,
+      type: String,
     },
     postCount: {
       type: Number,
