@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 // create schema
 
@@ -104,6 +105,12 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 )
+
+// === custom middleware to handle hasing password
+userSchema.pre('save', async function (next) {
+  console.log(this)
+  next()
+})
 
 //Compile schema into model
 const User = mongoose.model('User', userSchema)
