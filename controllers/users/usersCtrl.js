@@ -5,10 +5,10 @@ const userRegisterCtrl = async (req, res) => {
   console.log(req.body)
   try {
     const user = await User.create({
-      firstName: 'Emma',
-      lastName: 'Ben',
-      email: 'Emma@gmail.com',
-      password: '12345',
+      firstName: req?.body?.firstName,
+      lastName: req?.body?.lastName,
+      email: req?.body?.email,
+      password: req?.body?.password,
     })
     res.json(user)
   } catch (error) {

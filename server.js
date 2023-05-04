@@ -11,7 +11,7 @@ dbConnect()
 // console.log(process.env)
 
 //Middleware
-app.use(express.json)
+app.use(express.json())
 
 //Register
 app.post('/api/users/register', userRegisterCtrl)
