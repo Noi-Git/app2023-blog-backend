@@ -1,5 +1,5 @@
 const notFound = (req, res, next) => {
-  const error = new Error(`Not Found - ${(req, originalUrl)}`) //create our own error message with new Error
+  const error = new Error(`Not Found - ${req.originalUrl}`) //create our own error message with new Error
   res.status(404)
   next(error) //send error to the next middleware - which is the errorHandler below - so the custom message we created will be apply to the error message in errHandler function
 }
