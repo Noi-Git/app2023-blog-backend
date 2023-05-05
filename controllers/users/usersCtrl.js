@@ -27,10 +27,10 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body //destructure email and password from reqest body
-  const userFound = await User.findOne({ email: req?.body?.email })
+  const userFound = await User.findOne({ email })
 
   //check if password is matched
-  if (userFound && (await userFound.isPasswordMatched)) {
+  if (userFound && (await userFound.isPasswordMatched(password))) {
     res.json(userFound)
   } else {
     res.status(401)
