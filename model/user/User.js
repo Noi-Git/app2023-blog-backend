@@ -116,6 +116,13 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
+//match password using mongoose methods
+//create the custom method in the userSchema - it will be available to all users instance
+//we can name it any thing - but here we are going to call it "isPasswordMatched"
+userSchema.methods.isPasswordMatched = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
+}
+
 //Compile schema into model
 const User = mongoose.model('User', userSchema)
 
