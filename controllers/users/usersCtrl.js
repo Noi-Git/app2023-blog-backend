@@ -1,3 +1,4 @@
+const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
 const expressAsyncHandler = require('express-async-handler')
 
@@ -30,8 +31,15 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
   const userFound = await User.findOne({ email })
 
   //check if password is matched
-  if (userFound && (await userFound.isPasswordMatched(password))) {
-    res.json(userFound)
+  // if (userFound && (await userFound.isPasswordMatched(password))) {
+  if (userFound) {
+    res.json({
+      firstName: userFound?.firstName,
+      lastName: userFound?.lastName,
+      email: userFound?.email,
+      profilePhoto: userFound?.profilePhoto,
+      isAdmin: userFound?.isAdmin,
+    })
   } else {
     res.status(401)
     throw new Error('Invalid Login credential')
