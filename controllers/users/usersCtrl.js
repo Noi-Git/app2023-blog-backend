@@ -26,10 +26,10 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
-  //check if user exist
   const user = await User.findOne({ email: req?.body?.email })
 
   if (!user) {
+    //check if user exist
     throw new Error(`Please provide valid email or password`)
   }
   res.json('You are in') //if user exist
