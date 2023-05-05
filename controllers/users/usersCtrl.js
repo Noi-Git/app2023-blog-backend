@@ -26,13 +26,16 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
-  const user = await User.findOne({ email: req?.body?.email })
+  const { email, password } = req.body //destructure email and password from reqest body
+  const userFound = await User.findOne({ email: req?.body?.email })
 
-  if (!user) {
-    //check if user exist
-    throw new Error(`Please provide valid email or password`)
+  //check if password is matched
+  if (userFound && (await userFound.isPasswordMatched)) {
+    res.json(userFound)
+  } else {
+    res.status(401)
+    throw new Error('Invalid Login credential')
   }
-  res.json('You are in') //if user exist
 })
 
 module.exports = { userRegisterCtrl, userLoginCtrl }
