@@ -32,13 +32,14 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
 
   //check if password is matched
   // if (userFound && (await userFound.isPasswordMatched(password))) {
-  if (userFound) {
+  if (userFound && userFound.password === password) {
     res.json({
       firstName: userFound?.firstName,
       lastName: userFound?.lastName,
       email: userFound?.email,
       profilePhoto: userFound?.profilePhoto,
       isAdmin: userFound?.isAdmin,
+      token: generateToken(userFound?._id),
     })
   } else {
     res.status(401)
