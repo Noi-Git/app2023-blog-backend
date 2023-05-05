@@ -9,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode
   res.status(statusCode)
   res.json({
-    message: err?.message,
+    message: err?.message, //will get the custom message for each route from usersCtrl
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   })
 }
