@@ -10,7 +10,7 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
     throw new Error('User already exists')
   }
 
-  console.log(req.body)
+  // console.log(req.body)
   try {
     const user = await User.create({
       firstName: req?.body?.firstName,
@@ -26,7 +26,7 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req.body //destructure email and password from reqest body
+  const { email, password } = req.body //destructure email and password from request body
   const userFound = await User.findOne({ email })
 
   //check if password is matched
