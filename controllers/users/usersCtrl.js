@@ -26,7 +26,7 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req.body //destructure email and password from request body
+  const { email, password } = req?.body //destructure email and password from request body
   const userFound = await User.findOne({ email })
 
   //check if password is matched
