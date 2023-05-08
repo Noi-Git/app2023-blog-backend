@@ -28,7 +28,7 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 // === Login user ===
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
   const { email, password } = req?.body //destructure email and password from request body
-  const userFound = await User.findOne({ email })
+  const userFound = await User.findOne({ email }) //.findOne() <- return an object
 
   //check if password is matched
   // if (userFound && (await userFound.isPasswordMatched(password))) {
@@ -52,7 +52,12 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
 
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
   try {
-  } catch (error) {}
+    //.find() <- return an array
+    const users = await User.find({})
+    res.json(users)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = { userRegisterCtrl, userLoginCtrl }
