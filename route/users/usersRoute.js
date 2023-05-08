@@ -9,6 +9,6 @@ const usersRoutes = express.Router()
 
 usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
-usersRoutes.get('/', userLoginCtrl)
+usersRoutes.get('/', fetchUsersCtrl)
 
 module.exports = usersRoutes
