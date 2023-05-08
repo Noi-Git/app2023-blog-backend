@@ -60,4 +60,4 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { userRegisterCtrl, userLoginCtrl }
+module.exports = { userRegisterCtrl, userLoginCtrl, fetchUsersCtrl }
