@@ -66,7 +66,14 @@ const DeleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   if (!id) throw new Error('Please provide user ID')
 
   try {
+    const deletedUser = await User.findByIdAndDelete(id)
+    res.json(deletedUser)
   } catch (error) {}
 })
 
-module.exports = { userRegisterCtrl, userLoginCtrl, fetchUsersCtrl }
+module.exports = {
+  userRegisterCtrl,
+  userLoginCtrl,
+  fetchUsersCtrl,
+  DeleteUsersCtrl,
+}
