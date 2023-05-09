@@ -91,5 +91,6 @@ module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
   fetchUsersCtrl,
+  fetchUserDetailsCtrl,
   deleteUsersCtrl,
 }
