@@ -106,21 +106,23 @@ const userSchema = new mongoose.Schema(
   }
 )
 
-// === custom middleware to handle hasing password
+// === custom middleware to handle hashing password
 userSchema.pre('save', async function (next) {
-  // console.log(this)
+  if (!this.isModified('password')) {
+    next()
+  }
 
-  // hash password
-  const salt = (this.password = await bcrypt.genSalt(10))
+  const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
-  next()
 })
 
 //match password using mongoose methods
-//create the custom method in the userSchema - it will be available to all users instance
-//we can name it any thing - but here we are going to call it "isPasswordMatched"
 userSchema.methods.isPasswordMatched = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
+  const isMatched = await bcrypt.compare(enteredPassword, this.password)
+  console.log('Password matched:', isMatched)
+  return isMatched
+
+  // return await bcrypt.compare(enteredPassword, this.password)
 }
 
 //Compile schema into model
