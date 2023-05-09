@@ -60,6 +60,13 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
 })
 
 //=== Delete users ===
-const DeleteUsersCtrl = expressAsyncHandler(async (req, res) => {})
+const DeleteUsersCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = res.params
+
+  if (!id) throw new Error('Please provide user ID')
+
+  try {
+  } catch (error) {}
+})
 
 module.exports = { userRegisterCtrl, userLoginCtrl, fetchUsersCtrl }
