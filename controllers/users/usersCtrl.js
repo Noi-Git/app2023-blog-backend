@@ -65,6 +65,13 @@ const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
 
   validateMongodbId(id)
+
+  try {
+    const user = await User.findById(id)
+    res.json(user)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 //=== Delete users ===
