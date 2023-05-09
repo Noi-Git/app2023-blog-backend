@@ -61,6 +61,11 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
 })
 
 //=== Fetch a single user ===
+const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  validateMongodbId(id)
+})
 
 //=== Delete users ===
 const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
