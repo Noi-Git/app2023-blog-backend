@@ -5,12 +5,28 @@ const validateMongodbId = require('../../utils/validateMongodbID')
 
 // === Register user ===
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
+  // Extract email and password from request body
+  const { email, password } = req.body
+
+  if (!password) {
+    throw new Error('Password is required')
+  }
+
   //check if user exist
   const userExists = await User.findOne({ email: req?.body?.email })
-
   if (userExists) {
     throw new Error('User already exists')
   }
+
+  //Create new user
+  const user = new User(req.body)
+
+  //Hash passwords
+  const salt = await bcrypt.genSalt(10)
+  user.password = await bcrypt.hash(password, salt)
+
+  //Save user to the database
+  await user.save()
 
   // console.log(req.body)
   try {
