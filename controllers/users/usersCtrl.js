@@ -58,7 +58,7 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch all users ===
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
-  // console.log(req.headers)
+  console.log(req.headers)
   try {
     //.find() <- return an array
     const users = await User.find({})
