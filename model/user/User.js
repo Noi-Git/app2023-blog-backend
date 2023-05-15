@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 // create schema
 
-const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
   {
     firstName: {
       required: [true, 'First name is required'],
@@ -109,15 +109,20 @@ const UserSchema = new Schema(
 // === custom middleware to handle hashing password
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
+    console.log('isModified:: ', isModified())
     next()
   }
 
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
+
+  // const salt = await bcrypt.genSalt(10, (err, hash) => {
+  //   bcrypt.hash(this.password, salt)
+  // })
 })
 
 //match password using mongoose methods
-UserSchema.methods.isPasswordMatched = async function (enteredPassword) {
+UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
   const isMatched = await bcrypt.compare(enteredPassword, this.password)
   console.log('Password matched:', isMatched)
   return isMatched
