@@ -77,7 +77,9 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   try {
     const myProfile = await User.findById(id)
     res.json(myProfile)
-  } catch (error) {}
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 //=== Fetch a single user ===
