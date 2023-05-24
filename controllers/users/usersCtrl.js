@@ -84,9 +84,9 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Update user profile ===
 const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
+  const { _id } = req?.user
+  console.log(_id)
   res.json('profile')
-  console.log(req.user)
-  // const {id} = req.params
   try {
   } catch (error) {}
 })
