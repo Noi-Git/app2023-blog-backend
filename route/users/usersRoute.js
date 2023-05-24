@@ -14,7 +14,7 @@ const usersRoutes = express.Router()
 usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
 usersRoutes.get('/', authMiddleware, fetchUsersCtrl)
-usersRoutes.get('/profile/:id', userProfileCtrl)
+usersRoutes.get('/profile/:id', authMiddleware, userProfileCtrl)
 usersRoutes.get('/:id', fetchUserDetailsCtrl)
 usersRoutes.delete('/:id', deleteUsersCtrl)
 
