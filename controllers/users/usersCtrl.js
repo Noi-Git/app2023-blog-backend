@@ -71,8 +71,9 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
 //=== Fetch user profile ===
 // only allow login user to view their profile
 const userProfileCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
   try {
-    const myProfile = await User.findById()
+    const myProfile = await User.findById(id)
   } catch (error) {}
 })
 
