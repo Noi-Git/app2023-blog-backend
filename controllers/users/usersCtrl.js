@@ -102,8 +102,7 @@ const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
       runValidators: true,
     }
   )
-  try {
-  } catch (error) {}
+  res.json(user)
 })
 
 //=== Fetch a single user ===
