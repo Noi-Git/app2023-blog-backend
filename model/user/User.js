@@ -114,12 +114,12 @@ UserSchema.pre('save', async function (next) {
   }
 
   const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
+  password = await bcrypt.hash(this.password, salt)
 })
 
 //match password using mongoose methods
 UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
-  const isMatched = await bcrypt.compare(enteredPassword, this.password)
+  const isMatched = await bcrypt.compare(enteredPassword, password)
   console.log('Password matched:', isMatched)
   return isMatched
 
