@@ -82,6 +82,14 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+//=== Update user profile ===
+const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('profile')
+  // const {id} = req.params
+  try {
+  } catch (error) {}
+})
+
 //=== Fetch a single user ===
 const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
@@ -116,4 +124,5 @@ module.exports = {
   fetchUserDetailsCtrl,
   deleteUsersCtrl,
   userProfileCtrl,
+  updateUserProfileCtrl,
 }
