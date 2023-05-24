@@ -115,4 +115,5 @@ module.exports = {
   fetchUsersCtrl,
   fetchUserDetailsCtrl,
   deleteUsersCtrl,
+  userProfileCtrl,
 }
