@@ -72,8 +72,11 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
 // only allow login user to view their profile
 const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
+
+  validateMongodbId(id)
   try {
     const myProfile = await User.findById(id)
+    res.json(myProfile)
   } catch (error) {}
 })
 
