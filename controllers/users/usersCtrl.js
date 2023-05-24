@@ -85,8 +85,16 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
 //=== Update user profile ===
 const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user
-  console.log(_id)
-  res.json('profile')
+  // console.log(_id)
+
+  validateMongodbId(_id)
+
+  const user = await User.findByIdAndUpdate(_id, {
+    firstName: req?.body?.firstName,
+    lastName: req?.body?.lastName,
+    email: req?.body?.eamil,
+    bio: req?.body?.bio,
+  })
   try {
   } catch (error) {}
 })
