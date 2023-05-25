@@ -153,6 +153,12 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Following ===
 const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
+  const { followId } = req.body
+  const loginUserId = req.user._id
+  console.log({ followId, loginUserId })
+  // 1. find user you want to follow and update followers field
+
+  // 2. update the login user following field
   res.json('following API')
 })
 
