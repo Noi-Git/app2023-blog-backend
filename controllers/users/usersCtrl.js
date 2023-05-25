@@ -128,8 +128,9 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
   validateMongodbId(_id)
 
   // finde user by id .. then update password
+  const user = await User.findById(_id)
+
   if (password) {
-    const user = await User.findById(_id)
   }
 })
 
