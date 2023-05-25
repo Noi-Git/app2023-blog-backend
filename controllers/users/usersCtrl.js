@@ -173,6 +173,7 @@ const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
     followId,
     {
       $push: { followers: loginUserId },
+      isFollowing: true,
     },
     { new: true }
   )
