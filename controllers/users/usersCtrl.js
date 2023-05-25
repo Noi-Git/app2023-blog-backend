@@ -153,7 +153,7 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Following ===
 const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('following endpoint')
+  res.json('following API')
 })
 
 module.exports = {
