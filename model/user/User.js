@@ -118,6 +118,7 @@ UserSchema.pre('save', async function (next) {
   //   next()
   // }
   password = await bcrypt.hash(this.password, salt)
+  next()
 })
 
 //match password using mongoose methods
