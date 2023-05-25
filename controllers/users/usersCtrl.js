@@ -82,6 +82,20 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+//=== Fetch a single user ===
+const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  validateMongodbId(id)
+
+  try {
+    const user = await User.findById(id)
+    res.json(user)
+  } catch (error) {
+    res.json(error)
+  }
+})
+
 //=== Update user profile ===
 const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user
@@ -103,20 +117,6 @@ const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
     }
   )
   res.json(user)
-})
-
-//=== Fetch a single user ===
-const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params
-
-  validateMongodbId(id)
-
-  try {
-    const user = await User.findById(id)
-    res.json(user)
-  } catch (error) {
-    res.json(error)
-  }
 })
 
 //=== Delete users ===
