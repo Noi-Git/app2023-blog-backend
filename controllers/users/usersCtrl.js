@@ -131,7 +131,11 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
   const user = await User.findById(_id)
 
   if (password) {
+    user.password = password
+    const updatedUser = await user.save()
+    res.json(updatedUser)
   }
+  return
 })
 
 //=== Delete users ===
