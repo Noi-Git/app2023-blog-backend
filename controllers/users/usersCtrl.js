@@ -151,6 +151,11 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   } catch (error) {}
 })
 
+//=== Following ===
+const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('following endpoint')
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -160,4 +165,5 @@ module.exports = {
   userProfileCtrl,
   updateUserProfileCtrl,
   updateUserPasswordCtrl,
+  followingUsersCtrl,
 }
