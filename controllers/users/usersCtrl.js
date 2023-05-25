@@ -159,4 +159,5 @@ module.exports = {
   deleteUsersCtrl,
   userProfileCtrl,
   updateUserProfileCtrl,
+  updateUserPasswordCtrl,
 }
