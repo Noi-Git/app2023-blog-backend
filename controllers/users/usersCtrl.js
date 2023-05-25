@@ -163,7 +163,9 @@ const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
   const alreadyFollowing = targetUser?.followers?.find(
     (user) => user?.toString() === loginUserId.toString()
   )
-  console.log('already following: ', alreadyFollowing)
+  // console.log('already following: ', alreadyFollowing)
+
+  if (alreadyFollowing) throw Error('Your have already followed this person')
 
   // console.log({ followId, loginUserId })
   // 1. find user you want to follow and update their followers field with the follower id
