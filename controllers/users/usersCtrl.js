@@ -155,7 +155,16 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
 const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
   const { followId } = req.body
   const loginUserId = req.user._id
-  console.log({ followId, loginUserId })
+
+  //find the target user -- check if the user with login id exist
+  const targetUser = await User.findById(followId)
+  // console.log('this is target user: ', targetUser)
+
+  const allFollowers = allFollowers?.followers?.find(
+    (user) => user?.toString() === loginUserId
+  )
+
+  // console.log({ followId, loginUserId })
   // 1. find user you want to follow and update their followers field with the follower id
   await User.findByIdAndUpdate(followId, {
     $push: { followers: loginUserId },
