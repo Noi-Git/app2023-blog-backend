@@ -119,6 +119,16 @@ const updateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user)
 })
 
+//=== Update user password ===
+const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
+  // only login user can update its password
+  const { _id } = req?.user
+  validateMongodbId(_id)
+
+  // finde user by id .. then update password
+  // if()
+})
+
 //=== Delete users ===
 const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
