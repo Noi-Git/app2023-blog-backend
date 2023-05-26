@@ -1,5 +1,6 @@
 const expressAsyncHandler = require('express-async-handler')
 const sgMail = require('@sendgrid/mail')
+const crypto = require('@sendgrid/crypto')
 const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
 const validateMongodbId = require('../../utils/validateMongodbID')
@@ -260,7 +261,7 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user)
 })
 
-//=== Account varification - send email:learn to send email with sendgrid
+//=== Generate email varification - send email:learn to send email with sendgrid
 const generateEmailVerificationTokenCtrl = expressAsyncHandler(
   async (req, res) => {
     const loginUserId = req.user.id
@@ -293,6 +294,13 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
   }
 )
 
+//=== Account verification
+const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
+  const { token } = req.body
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+  console.log('hashedToken:- ', hashedToken)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -307,4 +315,5 @@ module.exports = {
   blockUserCtrl,
   unBlockUserCtrl,
   generateEmailVerificationTokenCtrl,
+  accountVerificationCtrl,
 }
