@@ -286,7 +286,7 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
       }
 
       await sgMail.send(msg)
-      res.json('Email sent')
+      res.json(resetURL)
     } catch (error) {
       res.json(error)
     }
