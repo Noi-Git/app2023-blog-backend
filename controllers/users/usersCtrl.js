@@ -220,7 +220,6 @@ const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Block user ===
 //only admin can block user
-
 const blockUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
 
@@ -231,6 +230,25 @@ const blockUserCtrl = expressAsyncHandler(async (req, res) => {
     id,
     {
       isBlocked: true,
+    },
+    {
+      new: true,
+    }
+  )
+  res.json(user)
+})
+
+//=== unblock user ===
+const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  validateMongodbId(id)
+
+  //find user
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBlocked: false,
     },
     {
       new: true,
@@ -251,4 +269,5 @@ module.exports = {
   followingUsersCtrl,
   unFollowUsersCtrl,
   blockUserCtrl,
+  unBlockUserCtrl,
 }
