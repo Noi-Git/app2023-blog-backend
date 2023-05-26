@@ -218,6 +218,15 @@ const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
   res.json('You have successfully unfollow')
 })
 
+//=== Block user ===
+//only admin can block user
+
+const blockUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params.id
+
+  validateMongodbId(id)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
