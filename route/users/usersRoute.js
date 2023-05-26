@@ -12,6 +12,7 @@ const {
   unFollowUsersCtrl,
   blockUserCtrl,
   unBlockUserCtrl,
+  generateEmailVerificationCtrl,
 } = require('../../controllers/users/usersCtrl')
 const authMiddleware = require('../../middlewares/auth/authMiddleware')
 
@@ -22,6 +23,7 @@ usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
 usersRoutes.put('/password', authMiddleware, updateUserPasswordCtrl)
 usersRoutes.put('/follow', authMiddleware, followingUsersCtrl)
+usersRoutes.put('/send-email', generateEmailVerificationCtrl)
 usersRoutes.put('/unfollow', authMiddleware, unFollowUsersCtrl)
 usersRoutes.put('/block-user/:id', authMiddleware, blockUserCtrl)
 usersRoutes.put('/unblock-user/:id', authMiddleware, unBlockUserCtrl)
