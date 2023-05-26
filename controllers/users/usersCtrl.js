@@ -205,7 +205,17 @@ const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
     }
   )
 
-  // res.json('Unfollow')
+  await User.findByIdAndUpdate(
+    loginUserId,
+    {
+      $pull: { following: unfollowId },
+    },
+    {
+      new: true,
+    }
+  )
+
+  res.json('You have successfully unfollow')
 })
 
 module.exports = {
