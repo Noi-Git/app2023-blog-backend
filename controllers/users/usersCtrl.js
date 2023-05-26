@@ -274,7 +274,7 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
       // save user in database
       await user.save()
 
-      const resetURL = `Please verify your account with in 10 minutes. <button href="https://localhost: 3000/verify-account"></button>`
+      const resetURL = `Please verify your account with in 10 minutes. <button href="https://localhost: 3000/verify-account/${verificationToken}"></button>`
 
       //build messages
       const msg = {
