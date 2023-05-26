@@ -263,10 +263,17 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
 //=== Account varification - send email:learn to send email with sendgrid
 const generateEmailVerificationTokenCtrl = expressAsyncHandler(
   async (req, res) => {
-    const loginUser = req.user.id
-    console.log('Here is the loginUser:- ', loginUser)
-    // res.send('Email')
+    const loginUserId = req.user.id
+    // console.log('Here is the loginUser:- ', loginUser)
+
+    // find user in database
+    const user = await User.findById(loginUserId)
+    // console.log(user)
     try {
+      // generate token
+      const verificationToken = user.createAccountVerificationToken()
+      console.log('--- ', verificationToken)
+
       //build messages
       const msg = {
         to: 'sinnang.noi@gmail.com', // Change to your recipient
@@ -276,7 +283,7 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
         html: '<strong>and easy to do anywhere, even with Node.js</strong>',
       }
 
-      await sgMail.send(msg)
+      // await sgMail.send(msg)
       res.json('Email sent')
     } catch (error) {
       res.json(error)
