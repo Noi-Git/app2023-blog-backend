@@ -135,7 +135,13 @@ UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
 userSchema.methods.createAccountVerificationToken = async () => {
   //generate token with crypto
   const verificationToken = crypto.randomBytes(32).toString('hex')
-  // const verificationToken = crypto.createHash('sha256').update()
+  this.accountVerificationToken = crypto
+    .createHash('sha256')
+    .update(verificationToken)
+    .digest('hex')
+  this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
+
+  return verificationToken
 }
 
 //Compile schema into model
