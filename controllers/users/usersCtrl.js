@@ -225,6 +225,18 @@ const blockUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params.id
 
   validateMongodbId(id)
+
+  //find user
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBlocked: true,
+    },
+    {
+      new: true,
+    }
+  )
+  res.json(user)
 })
 
 module.exports = {
@@ -238,4 +250,5 @@ module.exports = {
   updateUserPasswordCtrl,
   followingUsersCtrl,
   unFollowUsersCtrl,
+  blockUserCtrl,
 }
