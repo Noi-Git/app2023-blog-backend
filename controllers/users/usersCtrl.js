@@ -263,6 +263,8 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
 //=== Account varification - send email:learn to send email with sendgrid
 const generateEmailVerificationTokenCtrl = expressAsyncHandler(
   async (req, res) => {
+    const loginUser = req.user.id
+    console.log('Here is the loginUser:- ', loginUser)
     // res.send('Email')
     try {
       //build messages

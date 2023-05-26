@@ -132,7 +132,7 @@ UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
 }
 
 // Verify account
-userSchema.methods.createAccountVerificationToken = async () => {
+UserSchema.methods.createAccountVerificationToken = async () => {
   //generate token with crypto
   const verificationToken = crypto.randomBytes(32).toString('hex')
   this.accountVerificationToken = crypto
