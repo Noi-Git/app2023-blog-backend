@@ -260,6 +260,11 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user)
 })
 
+//=== Account varification - send email:learn to send email with sendgrid
+const generateEmailVerificationCtrl = expressAsyncHandler(async (req, res) => {
+  res.send('Email')
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -273,4 +278,5 @@ module.exports = {
   unFollowUsersCtrl,
   blockUserCtrl,
   unBlockUserCtrl,
+  generateEmailVerificationCtrl,
 }
