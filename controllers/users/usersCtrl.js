@@ -271,8 +271,8 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
     // console.log(user)
     try {
       // generate token
-      const verificationToken = user.createAccountVerificationToken()
-      console.log('--- ', verificationToken)
+      const verificationToken = await user.createAccountVerificationToken()
+      // console.log('--- ', verificationToken)
 
       //build messages
       const msg = {
