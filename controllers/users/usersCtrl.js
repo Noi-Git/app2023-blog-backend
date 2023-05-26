@@ -268,11 +268,11 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
 
     // find user in database
     const user = await User.findById(loginUserId)
-    // console.log(user)
     try {
       // generate token
       const verificationToken = await user.createAccountVerificationToken()
-      // console.log('--- ', verificationToken)
+      // save user in database
+      await user.save()
 
       //build messages
       const msg = {
