@@ -188,6 +188,9 @@ const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
   res.json('You have successfully follow')
 })
 
+//=== UnFollow ===
+const unfollowUsersCtrl = expressAsyncHandler(async (req, res) => {})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -198,4 +201,5 @@ module.exports = {
   updateUserProfileCtrl,
   updateUserPasswordCtrl,
   followingUsersCtrl,
+  unfollowUsersCtrl,
 }
