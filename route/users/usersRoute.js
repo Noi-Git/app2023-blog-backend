@@ -9,6 +9,7 @@ const {
   updateUserProfileCtrl,
   updateUserPasswordCtrl,
   followingUsersCtrl,
+  unFollowUsersCtrl,
 } = require('../../controllers/users/usersCtrl')
 const authMiddleware = require('../../middlewares/auth/authMiddleware')
 
@@ -19,6 +20,7 @@ usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
 usersRoutes.put('/password', authMiddleware, updateUserPasswordCtrl)
 usersRoutes.put('/follow', authMiddleware, followingUsersCtrl)
+usersRoutes.put('/unfollow', authMiddleware, unFollowUsersCtrl)
 usersRoutes.get('/profile/:id', authMiddleware, userProfileCtrl)
 usersRoutes.put('/:id', authMiddleware, updateUserProfileCtrl)
 usersRoutes.get('/:id', fetchUserDetailsCtrl)

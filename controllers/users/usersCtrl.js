@@ -189,7 +189,18 @@ const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
 })
 
 //=== UnFollow ===
-const unfollowUsersCtrl = expressAsyncHandler(async (req, res) => {})
+const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
+  const { unfollowId } = req.body
+  const loginUserId = req.user._id
+
+  //remove the login user from the follower account
+  await User.findByIdAndUpdate(unfollowId, {
+    $pull: { followers: loginUserId },
+    isFollowing: false,
+  })
+
+  // res.json('Unfollow')
+})
 
 module.exports = {
   userRegisterCtrl,
@@ -201,5 +212,5 @@ module.exports = {
   updateUserProfileCtrl,
   updateUserPasswordCtrl,
   followingUsersCtrl,
-  unfollowUsersCtrl,
+  unFollowUsersCtrl,
 }
