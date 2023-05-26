@@ -262,7 +262,22 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Account varification - send email:learn to send email with sendgrid
 const generateEmailVerificationCtrl = expressAsyncHandler(async (req, res) => {
-  res.send('Email')
+  // res.send('Email')
+  try {
+    //build messages
+    const msg = {
+      to: 'sinnang.noi@gmail.com', // Change to your recipient
+      from: 'noi.patsin@gmail.com', // Change to your verified sender
+      subject: 'Sending with SendGrid is Fun',
+      text: 'and easy to do anywhere, even with Node.js',
+      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    }
+
+    await sgMail.send(msg)
+    res.json('Email sent')
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = {
