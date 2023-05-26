@@ -194,10 +194,16 @@ const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.user._id
 
   //remove the login user from the follower account
-  await User.findByIdAndUpdate(unfollowId, {
-    $pull: { followers: loginUserId },
-    isFollowing: false,
-  })
+  await User.findByIdAndUpdate(
+    unfollowId,
+    {
+      $pull: { followers: loginUserId },
+      isFollowing: false,
+    },
+    {
+      new: true,
+    }
+  )
 
   // res.json('Unfollow')
 })
