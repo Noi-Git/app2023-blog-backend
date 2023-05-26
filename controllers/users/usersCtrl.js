@@ -151,6 +151,112 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   } catch (error) {}
 })
 
+//=== Following ===
+const followingUsersCtrl = expressAsyncHandler(async (req, res) => {
+  const { followId } = req.body
+  const loginUserId = req.user._id
+
+  //find the target user -- check if the user with login id exist
+  const targetUser = await User.findById(followId)
+  // console.log('this is target user: ', targetUser)
+
+  const alreadyFollowing = targetUser?.followers?.find(
+    (user) => user?.toString() === loginUserId.toString()
+  )
+  // console.log('already following: ', alreadyFollowing)
+
+  if (alreadyFollowing) throw Error('Your have already followed this person')
+
+  // console.log({ followId, loginUserId })
+  // 1. find user you want to follow and update their followers field with the follower id
+  await User.findByIdAndUpdate(
+    followId,
+    {
+      $push: { followers: loginUserId },
+      isFollowing: true,
+    },
+    { new: true }
+  )
+  // 2. update the login user following field
+  await User.findByIdAndUpdate(
+    loginUserId,
+    {
+      $push: { following: followId },
+    },
+    { new: true }
+  )
+  res.json('You have successfully follow')
+})
+
+//=== UnFollow ===
+const unFollowUsersCtrl = expressAsyncHandler(async (req, res) => {
+  const { unfollowId } = req.body
+  const loginUserId = req.user._id
+
+  //remove the login user from the follower account
+  await User.findByIdAndUpdate(
+    unfollowId,
+    {
+      $pull: { followers: loginUserId },
+      isFollowing: false,
+    },
+    {
+      new: true,
+    }
+  )
+
+  await User.findByIdAndUpdate(
+    loginUserId,
+    {
+      $pull: { following: unfollowId },
+    },
+    {
+      new: true,
+    }
+  )
+
+  res.json('You have successfully unfollow')
+})
+
+//=== Block user ===
+//only admin can block user
+const blockUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  validateMongodbId(id)
+
+  //find user
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBlocked: true,
+    },
+    {
+      new: true,
+    }
+  )
+  res.json(user)
+})
+
+//=== unblock user ===
+const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  validateMongodbId(id)
+
+  //find user
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBlocked: false,
+    },
+    {
+      new: true,
+    }
+  )
+  res.json(user)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -160,4 +266,8 @@ module.exports = {
   userProfileCtrl,
   updateUserProfileCtrl,
   updateUserPasswordCtrl,
+  followingUsersCtrl,
+  unFollowUsersCtrl,
+  blockUserCtrl,
+  unBlockUserCtrl,
 }
