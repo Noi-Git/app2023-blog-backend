@@ -1,7 +1,10 @@
+const expressAsyncHandler = require('express-async-handler')
+const sgMail = require('@sendgrid/mail')
 const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
-const expressAsyncHandler = require('express-async-handler')
 const validateMongodbId = require('../../utils/validateMongodbID')
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 // === Register user ===
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
