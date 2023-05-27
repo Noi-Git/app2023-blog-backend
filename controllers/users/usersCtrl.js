@@ -1,7 +1,11 @@
+const expressAsyncHandler = require('express-async-handler')
+const sgMail = require('@sendgrid/mail')
+const crypto = require('crypto')
 const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
-const expressAsyncHandler = require('express-async-handler')
 const validateMongodbId = require('../../utils/validateMongodbID')
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 // === Register user ===
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
@@ -257,6 +261,61 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user)
 })
 
+//=== Generate email varification - send email:learn to send email with sendgrid
+const generateEmailVerificationTokenCtrl = expressAsyncHandler(
+  async (req, res) => {
+    const loginUserId = req.user.id
+    // console.log('Here is the loginUser:- ', loginUser)
+
+    // find user in database
+    const user = await User.findById(loginUserId)
+    try {
+      // generate token
+      const verificationToken = await user.createAccountVerificationToken()
+      // save user in database
+      await user.save()
+
+      const resetURL = `Please verify your account with in 10 minutes. <button href="https://localhost: 3000/verify-account/${verificationToken}">Click to verify your account</button>`
+
+      //build messages
+      const msg = {
+        to: 'sinnang.noi@gmail.com', // Change to your recipient
+        from: 'noi.patsin@gmail.com', // Change to your verified sender
+        subject: 'Sending with SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: resetURL,
+      }
+
+      await sgMail.send(msg)
+      res.json(resetURL)
+    } catch (error) {
+      res.json(error)
+    }
+  }
+)
+
+//=== Account verification
+const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
+  const { token } = req.body
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+  // res.json(hashedToken)
+
+  const userFound = await User.findOne({
+    accountVerificationToken: hashedToken,
+    // get the value of accountVerificationTokenExpireds from database
+    accountVerificationTokenExpires: { $gt: new Date() },
+  })
+  // check if the token is expired
+  if (!userFound) throw new Error('Token expired')
+
+  // reset
+  userFound.isAccountVerified = true
+  userFound.accountVerificationToken = undefined
+  userFound.accountVerificationTokenExpires = undefined
+  await userFound.save()
+  res.json(userFound)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -270,4 +329,6 @@ module.exports = {
   unFollowUsersCtrl,
   blockUserCtrl,
   unBlockUserCtrl,
+  generateEmailVerificationTokenCtrl,
+  accountVerificationCtrl,
 }

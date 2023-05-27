@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
 
 // create schema
 
@@ -128,6 +129,20 @@ UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
   return isMatched
 
   // return await bcrypt.compare(enteredPassword, this.password)
+}
+
+// Verify account
+UserSchema.methods.createAccountVerificationToken = async function () {
+  // need to use function decoration here, otherwise the token wouldn't save to db
+  //generate token with crypto
+  const verificationToken = crypto.randomBytes(32).toString('hex')
+  this.accountVerificationToken = crypto
+    .createHash('sha256')
+    .update(verificationToken)
+    .digest('hex')
+  this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
+
+  return verificationToken
 }
 
 //Compile schema into model
