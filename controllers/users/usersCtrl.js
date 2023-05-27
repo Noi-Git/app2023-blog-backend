@@ -301,7 +301,11 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
 
   const userFound = await User.findOne({
     accountVerificationToken: hashedToken,
+    // get the value of accountVerificationTokenExpireds from database
+    accountVerificationTokenExpires: { $gt: new Date() },
   })
+  // check if the token is expired
+  if (!userFound) throw new Error('Token expired')
   res.json(userFound)
 })
 
