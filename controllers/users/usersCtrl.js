@@ -298,6 +298,7 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
 const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   const { token } = req.body
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+  // res.json(hashedToken)
 
   const userFound = await User.findOne({
     accountVerificationToken: hashedToken,
@@ -306,6 +307,12 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   })
   // check if the token is expired
   if (!userFound) throw new Error('Token expired')
+
+  // reset
+  userFound.isAccountVerified = true
+  userFound.accountVerificationToken = undefined
+  userFound.accountVerificationTokenExpires = undefined
+  await userFound.save()
   res.json(userFound)
 })
 
