@@ -298,19 +298,11 @@ const generateEmailVerificationTokenCtrl = expressAsyncHandler(
 const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   const { token } = req.body
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
-  /* === Manually test to see if we can get the same token after hashing ===
-  const hashedToken = crypto
-    .createHash('sha256')
-    .update('0061bd98ce7ef7513bea6295690106a24e321035d38ed14ab8eb2382a71813d6')
-    .digest('hex')
-  console.log('hashedToken:- ', hashedToken)
-  res.json(hashedToken)
-  */
-  res.json(hashedToken)
-  // const userFound = await User.findOne({
-  //   accountVerificationToken: hashedToken,
-  // })
-  // res.json(userFound)
+
+  const userFound = await User.findOne({
+    accountVerificationToken: hashedToken,
+  })
+  res.json(userFound)
 })
 
 module.exports = {
