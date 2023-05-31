@@ -329,13 +329,16 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   if (!user) throw new Error('User not found')
-  res.send('forget password')
+  // res.send('forget password')
 
   // if user is found -- create token -- send it to the user
   try {
     // add token to a variable
     const token = await user.createPasswordResetToken()
+    console.log(token)
     await user.save()
+
+    res.send('Hey! check your email to reset password')
   } catch (error) {
     res.json(error)
   }
