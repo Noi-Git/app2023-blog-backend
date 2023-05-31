@@ -338,7 +338,20 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
     console.log(token)
     await user.save()
 
-    res.send('Hey! check your email to reset password')
+    const resetURL = `Please reset your password with in 10 minutes. <button href="https://localhost: 3000/reset-password/${token}">Click to reset your password</button>`
+
+    //build messages
+    const msg = {
+      to: email,
+      from: 'noi.patsin@gmail.com',
+      subject: 'Sending reset password token with SendGrid is Fun',
+      text: 'and easy to reset password andtime, even with Node.js',
+      html: resetURL,
+    }
+
+    const emailMsg = await sgMail.send(msg)
+    res.json(emailMsg)
+    // res.send('Hey! check your email to reset password')
   } catch (error) {
     res.json(error)
   }
