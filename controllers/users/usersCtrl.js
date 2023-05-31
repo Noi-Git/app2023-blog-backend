@@ -336,7 +336,9 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
     // add token to a variable
     const token = await user.createPasswordResetToken()
     await user.save()
-  } catch (error) {}
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = {
