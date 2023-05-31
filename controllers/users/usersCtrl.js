@@ -316,6 +316,14 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   res.json(userFound)
 })
 
+/* === Forget password === 
+  1. generate token and send it to the user
+  2. find user by the token -- and -- create a controller to update the password
+*/
+
+// === Forget token generator
+const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -331,4 +339,5 @@ module.exports = {
   unBlockUserCtrl,
   generateEmailVerificationTokenCtrl,
   accountVerificationCtrl,
+  forgetPasswordTokenCtrl,
 }
