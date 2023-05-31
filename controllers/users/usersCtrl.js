@@ -350,7 +350,10 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
     }
 
     const emailMsg = await sgMail.send(msg)
-    res.json(emailMsg)
+    res.json({
+      msg: `The link to reset your password has been sent to ${user?.email}. Please reset your password within 10 minutes, ${resetURL}`,
+    })
+    // res.json(emailMsg)
     // res.send('Hey! check your email to reset password')
   } catch (error) {
     res.json(error)
