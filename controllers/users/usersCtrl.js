@@ -323,6 +323,12 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Forget token generator
 const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
+  // find user by email
+  const { email } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (!user) throw new Error('User not found')
   res.send('forget password')
 })
 
