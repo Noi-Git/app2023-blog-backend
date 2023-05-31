@@ -333,6 +333,7 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
 
   // if user is found -- create token -- send it to the user
   try {
+    user.createPasswordResetToken()
   } catch (error) {}
 })
 
