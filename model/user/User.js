@@ -149,13 +149,13 @@ UserSchema.methods.createAccountVerificationToken = async function () {
 UserSchema.methods.createPasswordResetToken = async function () {
   const resetToken = crypto.randomBytes(32).toString('hex')
   console.log({ resetToken })
-  // this.accountVerificationToken = crypto
-  //   .createHash('sha256')
-  //   .update(resetToken)
-  //   .digest('hex')
-  // this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex')
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
 
-  // return resetToken
+  return resetToken
 }
 
 //Compile schema into model
