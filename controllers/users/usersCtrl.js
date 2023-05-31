@@ -322,7 +322,9 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
 */
 
 // === Forget token generator
-const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {})
+const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
+  res.send('forget password')
+})
 
 module.exports = {
   userRegisterCtrl,

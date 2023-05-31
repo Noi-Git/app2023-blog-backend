@@ -14,6 +14,7 @@ const {
   unBlockUserCtrl,
   generateEmailVerificationTokenCtrl,
   accountVerificationCtrl,
+  forgetPasswordTokenCtrl,
 } = require('../../controllers/users/usersCtrl')
 const authMiddleware = require('../../middlewares/auth/authMiddleware')
 
@@ -23,6 +24,7 @@ usersRoutes.get('/', authMiddleware, fetchUsersCtrl)
 usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
 usersRoutes.put('/password', authMiddleware, updateUserPasswordCtrl)
+usersRoutes.post('/forget-password-token', forgetPasswordTokenCtrl)
 usersRoutes.put('/follow', authMiddleware, followingUsersCtrl)
 usersRoutes.post(
   '/generate-verify-email-token',
