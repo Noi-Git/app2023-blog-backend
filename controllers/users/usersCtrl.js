@@ -330,6 +330,10 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
 
   if (!user) throw new Error('User not found')
   res.send('forget password')
+
+  // if user is found -- create token -- send it to the user
+  try {
+  } catch (error) {}
 })
 
 module.exports = {
