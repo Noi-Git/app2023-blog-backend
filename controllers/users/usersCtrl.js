@@ -366,6 +366,9 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
   const { token, password } = req.body
   //get hashed token
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+
+  // find user passwordResetToken by the hashed token
+  const user = await User.findOne({ passwordResetToken: hashedToken })
 })
 
 module.exports = {
