@@ -360,6 +360,14 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+// === Password reset ===
+const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
+  // get token from request body
+  const { token, password } = req.body
+  //get hashed token
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -376,4 +384,5 @@ module.exports = {
   generateEmailVerificationTokenCtrl,
   accountVerificationCtrl,
   forgetPasswordTokenCtrl,
+  passwordResetCtrl,
 }
