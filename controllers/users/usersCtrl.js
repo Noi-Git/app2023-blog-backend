@@ -369,6 +369,10 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
   // find user passwordResetToken by the hashed token
   const user = await User.findOne({ passwordResetToken: hashedToken })
+
+  if (!user) throw new Error('Token is expired, Please try again later')
+
+  res.json(user)
 })
 
 module.exports = {
