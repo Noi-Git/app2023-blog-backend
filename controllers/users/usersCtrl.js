@@ -372,6 +372,11 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
   if (!user) throw new Error('Token is expired, Please try again later')
 
+  // update the password
+  user.password = password
+  user.passwordResetToken = undefined
+  user.passwordResetExpires = undefined
+
   res.json(user)
 })
 
