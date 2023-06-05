@@ -362,21 +362,26 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Password reset ===
 const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
+  // get token from request body
   const { token, password } = req.body
+  //get hashed token
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
 
-  //find this user by token
+  // find user passwordResetToken by the hashed token
   const user = await User.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
+    passwordResetExpires: { $gt: new Date() },
   })
-  if (!user) throw new Error('Token Expired, try again later')
 
-  //Update/change the password
+  if (!user) throw new Error('Token is expired, Please try again later')
+
+  // update the password
   user.password = password
   user.passwordResetToken = undefined
   user.passwordResetExpires = undefined
+
   await user.save()
+
   res.json(user)
 })
 
