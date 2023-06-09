@@ -14,3 +14,10 @@ const multerFilter = (req, file, cb) => {
     cb({ message: 'Unsupported file format' }, false)
   }
 }
+
+const profilePhotoUpload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+})
+
+module.exports = { profilePhotoUpload }
