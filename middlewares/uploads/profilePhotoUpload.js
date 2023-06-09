@@ -1,5 +1,6 @@
 const multer = require('multer')
 const sharp = require('sharp')
+const path = require('path')
 
 //use multer storeage to temporary save our image
 const multerStorage = multer.memoryStorage()
@@ -23,11 +24,18 @@ const profilePhotoUpload = multer({
 })
 
 //=== Image resizing ===
-const profilePhotoResize = (req, res, next) => {
+const profilePhotoResize = async (req, res, next) => {
   //check if there is no file to resize
   if (!req.file) return next()
 
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`
+
+  await sharp(req.file.buffer)
+    .resize(250, 250)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(path.join(`public/images/profile`))
+    .next()
 
   console.log('Resize:- ', req.file)
 }
