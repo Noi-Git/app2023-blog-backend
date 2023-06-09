@@ -34,7 +34,7 @@ const profilePhotoResize = async (req, res, next) => {
     .resize(250, 250)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(path.join(`public/images/profile`))
+    .toFile(path.join(`public/images/profile/${req.file.filename}`))
     .next()
 
   console.log('Resize:- ', req.file)
