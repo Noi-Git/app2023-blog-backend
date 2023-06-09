@@ -8,10 +8,13 @@ cloudinary.config({
 
 const cloudinaryUploadImg = async (fileToUpload) => {
   try {
-    const data = await cloudinary.uploader.upload(fileToUpload, {
+    const data = await cloudinary.v2.uploader.upload(fileToUpload, {
       resource_type: 'auto',
     })
-    return data.response
+    return data
+    // return {
+    //   url: data?.secure_url,
+    // }
   } catch (error) {
     return error
   }
