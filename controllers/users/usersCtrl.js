@@ -387,6 +387,7 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Profile photo upload ===
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
+  console.log(req.file) //need to add image in postman under "form-data"
   res.send('upload photo')
 })
 
