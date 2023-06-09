@@ -124,7 +124,7 @@ UserSchema.pre('save', async function (next) {
 
 //match password using mongoose methods
 UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
-  const isMatched = await bcrypt.compare(enteredPassword, password)
+  const isMatched = await bcrypt.compare(enteredPassword, this.password)
   console.log('Password matched:', isMatched)
   return isMatched
 
