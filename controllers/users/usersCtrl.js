@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
 const validateMongodbId = require('../../utils/validateMongodbID')
+const cloudinaryUploadImg = require('../../utils/cloudinary')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -34,9 +35,9 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body
   const userFound = await User.findOne({ email })
-  console.log('email:- ', email)
-  console.log('password:- ', password)
-  console.log('userFound:- ', userFound)
+  // console.log('email:- ', email)
+  // console.log('password:- ', password)
+  // console.log('userFound:- ', userFound)
 
   if (!userFound) {
     throw new Error('Invalid credentials')
@@ -62,7 +63,7 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch all users ===
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.headers)
+  // console.log(req.headers)
   try {
     //.find() <- return an array
     const users = await User.find({})
@@ -335,7 +336,7 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   try {
     // add token to a variable
     const token = await user.createPasswordResetToken()
-    console.log(token)
+    // console.log(token)
     await user.save()
 
     const resetURL = `Please reset your password with in 10 minutes. <button href="https://localhost: 3000/reset-password/${token}">Click to reset your password</button>`
@@ -385,6 +386,30 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user)
 })
 
+// === Profile photo upload ===
+const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
+  //Find login user
+  // console.log(req.user)
+  const { _id } = req.user
+
+  // console.log(req.file) //need to add image in postman under "form-data"
+  //1. get the path to the image file
+  const localPath = `public/images/profile/${req.file.filename}`
+
+  //2. upload to cloudinary
+  const imgUploaded = await cloudinaryUploadImg(localPath)
+  console.log(imgUploaded)
+
+  const foundUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      profilePhoto: imgUploaded?.url,
+    },
+    { new: true }
+  )
+  res.json(foundUser)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -402,4 +427,5 @@ module.exports = {
   accountVerificationCtrl,
   forgetPasswordTokenCtrl,
   passwordResetCtrl,
+  profilePhotoUploadCtrl,
 }

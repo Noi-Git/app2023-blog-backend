@@ -110,7 +110,7 @@ const UserSchema = new mongoose.Schema(
 // === custom middleware to handle hashing password
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    console.log('isModified:: ', isModified())
+    // console.log('isModified:: ', isModified())
     next()
   } // this one doesn't work
 
@@ -124,8 +124,8 @@ UserSchema.pre('save', async function (next) {
 
 //match password using mongoose methods
 UserSchema.methods.isPasswordMatched = async (enteredPassword) => {
-  const isMatched = await bcrypt.compare(enteredPassword, password)
-  console.log('Password matched:', isMatched)
+  const isMatched = await bcrypt.compare(enteredPassword, this.password)
+  // console.log('Password matched:', isMatched)
   return isMatched
 
   // return await bcrypt.compare(enteredPassword, this.password)
@@ -148,7 +148,7 @@ UserSchema.methods.createAccountVerificationToken = async function () {
 // Reset password / Forget password
 UserSchema.methods.createPasswordResetToken = async function () {
   const resetToken = crypto.randomBytes(32).toString('hex')
-  console.log({ resetToken })
+  // console.log({ resetToken })
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)
