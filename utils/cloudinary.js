@@ -11,10 +11,10 @@ const cloudinaryUploadImg = async (fileToUpload) => {
     const data = await cloudinary.v2.uploader.upload(fileToUpload, {
       resource_type: 'auto',
     })
-    return data
-    // return {
-    //   url: data?.secure_url,
-    // }
+    // return data
+    return {
+      url: data?.secure_url,
+    }
   } catch (error) {
     return error
   }
