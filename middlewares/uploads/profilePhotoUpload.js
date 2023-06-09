@@ -23,6 +23,13 @@ const profilePhotoUpload = multer({
 })
 
 //=== Image resizing ===
-const profilePhotoResize = (req, res, next) => {}
+const profilePhotoResize = (req, res, next) => {
+  //check if there is no file to resize
+  if (!req.file) return next()
 
-module.exports = { profilePhotoUpload }
+  req.file.filename = `user-${Date.now()}-${req.file.originalname}`
+
+  console.log('Resize:- ', req.file)
+}
+
+module.exports = { profilePhotoUpload, profilePhotoResize }
