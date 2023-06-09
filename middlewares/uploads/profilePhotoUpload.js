@@ -6,7 +6,7 @@ const multerStorage = multer.memoryStorage()
 //file type checking -- cb = callback
 const multerFilter = (req, file, cb) => {
   //check file type
-  if (file.mineType.startWith('image')) {
+  if (file.mimetype.startsWith('image')) {
     // null = successful
     cb(null, true)
   } else {
