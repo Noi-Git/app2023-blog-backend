@@ -391,8 +391,11 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
   // console.log(req.file) //need to add image in postman under "form-data"
   //1. get the path to the image file
   const localPath = `public/images/profile/${req.file.filename}`
-  // cloudinaryUploadImg
-  res.send(localPath)
+
+  //2. upload to cloudinary
+  const imgUploaded = await cloudinaryUploadImg(localPath)
+  console.log(imgUploaded)
+  res.json(localPath)
 })
 
 module.exports = {
