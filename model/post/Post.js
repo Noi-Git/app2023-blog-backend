@@ -55,5 +55,13 @@ const postSchema = new mongoose.Schema(
         'https://cdn.pixabay.com/photo/2014/10/01/10/44/animal-468228_1280.jpg',
     },
   },
-  {}
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    toObject: {
+      virtuals: true,
+    },
+    timestamps: true,
+  }
 )
