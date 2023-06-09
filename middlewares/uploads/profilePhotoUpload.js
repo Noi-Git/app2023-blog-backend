@@ -1,4 +1,5 @@
 const multer = require('multer')
+const sharp = require('sharp')
 
 //use multer storeage to temporary save our image
 const multerStorage = multer.memoryStorage()
@@ -20,5 +21,8 @@ const profilePhotoUpload = multer({
   fileFilter: multerFilter,
   limits: { fileSize: 1000000 }, //1 MB
 })
+
+//=== Image resizing ===
+const profilePhotoResize = (req, res, next) => {}
 
 module.exports = { profilePhotoUpload }
