@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const generateToken = require('../../config/token/generateToken')
 const User = require('../../model/user/User')
 const validateMongodbId = require('../../utils/validateMongodbID')
+const cloudinaryUploadImg = require('../../utils/cloudinary')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -387,8 +388,11 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Profile photo upload ===
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.file) //need to add image in postman under "form-data"
-  res.send('upload photo')
+  // console.log(req.file) //need to add image in postman under "form-data"
+  //1. get the path to the image file
+  const localPath = `public/images/profile/${req.file.filename}`
+  // cloudinaryUploadImg
+  res.send(localPath)
 })
 
 module.exports = {
