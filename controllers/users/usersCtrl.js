@@ -387,7 +387,7 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Profile photo upload ===
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('upload photo')
+  res.send('upload photo')
 })
 
 module.exports = {
