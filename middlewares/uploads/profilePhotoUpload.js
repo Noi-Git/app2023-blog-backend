@@ -18,6 +18,7 @@ const multerFilter = (req, file, cb) => {
 const profilePhotoUpload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
+  limits: { fileSize: 1000000 }, //1 MB
 })
 
 module.exports = { profilePhotoUpload }
