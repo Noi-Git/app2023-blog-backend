@@ -34,9 +34,9 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 const userLoginCtrl = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body
   const userFound = await User.findOne({ email })
-  console.log('email:- ', email)
-  console.log('password:- ', password)
-  console.log('userFound:- ', userFound)
+  // console.log('email:- ', email)
+  // console.log('password:- ', password)
+  // console.log('userFound:- ', userFound)
 
   if (!userFound) {
     throw new Error('Invalid credentials')
@@ -62,7 +62,7 @@ const userLoginCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch all users ===
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.headers)
+  // console.log(req.headers)
   try {
     //.find() <- return an array
     const users = await User.find({})
@@ -335,7 +335,7 @@ const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   try {
     // add token to a variable
     const token = await user.createPasswordResetToken()
-    console.log(token)
+    // console.log(token)
     await user.save()
 
     const resetURL = `Please reset your password with in 10 minutes. <button href="https://localhost: 3000/reset-password/${token}">Click to reset your password</button>`
