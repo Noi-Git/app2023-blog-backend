@@ -388,6 +388,10 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 
 // === Profile photo upload ===
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
+  //Find login user
+  // console.log(req.user)
+  const { _id } = req.user
+
   // console.log(req.file) //need to add image in postman under "form-data"
   //1. get the path to the image file
   const localPath = `public/images/profile/${req.file.filename}`
@@ -395,7 +399,15 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
   //2. upload to cloudinary
   const imgUploaded = await cloudinaryUploadImg(localPath)
   console.log(imgUploaded)
-  res.json(localPath)
+
+  const foundUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      profilePhoto: imgUploaded?.url,
+    },
+    { new: true }
+  )
+  res.json(foundUser)
 })
 
 module.exports = {
