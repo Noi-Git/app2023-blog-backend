@@ -24,11 +24,7 @@ const usersRoutes = express.Router()
 
 usersRoutes.post('/register', userRegisterCtrl)
 usersRoutes.post('/login', userLoginCtrl)
-usersRoutes.post(
-  '/profile-photo-upload',
-  authMiddleware,
-  profilePhotoUploadCtrl
-)
+usersRoutes.put('/profile-photo-upload', authMiddleware, profilePhotoUploadCtrl)
 usersRoutes.get('/', authMiddleware, fetchUsersCtrl)
 usersRoutes.post('/forget-password-token', forgetPasswordTokenCtrl)
 usersRoutes.put('/reset-password', passwordResetCtrl)
