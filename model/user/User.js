@@ -109,16 +109,16 @@ const UserSchema = new mongoose.Schema(
 
 // === custom middleware to handle hashing password
 UserSchema.pre('save', async function (next) {
-  // if (!this.isModified('password')) {
-  //   console.log('isModified:: ', isModified())
-  //   next()
-  // } // this one doesn't work
+  if (!this.isModified('password')) {
+    console.log('isModified:: ', isModified())
+    next()
+  } // this one doesn't work
 
   const salt = await bcrypt.genSalt(10)
-  if (!this.isModified('password')) {
-    next()
-  }
-  password = await bcrypt.hash(this.password, salt)
+  // if (!this.isModified('password')) {
+  //   next()
+  // }
+  this.password = await bcrypt.hash(this.password, salt)
   next()
 })
 
@@ -143,6 +143,19 @@ UserSchema.methods.createAccountVerificationToken = async function () {
   this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
 
   return verificationToken
+}
+
+// Reset password / Forget password
+UserSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString('hex')
+  console.log({ resetToken })
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex')
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000 // 10 minutes
+
+  return resetToken
 }
 
 //Compile schema into model

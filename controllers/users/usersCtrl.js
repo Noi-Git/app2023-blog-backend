@@ -316,6 +316,75 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   res.json(userFound)
 })
 
+/* === Forget password === 
+  1. generate token and send it to the user
+  2. find user by the token -- and -- create a controller to update the password
+*/
+
+// === Forget token generator
+const forgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
+  // find user by email
+  const { email } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (!user) throw new Error('User not found')
+  // res.send('forget password')
+
+  // if user is found -- create token -- send it to the user
+  try {
+    // add token to a variable
+    const token = await user.createPasswordResetToken()
+    console.log(token)
+    await user.save()
+
+    const resetURL = `Please reset your password with in 10 minutes. <button href="https://localhost: 3000/reset-password/${token}">Click to reset your password</button>`
+
+    //build messages
+    const msg = {
+      to: email,
+      from: 'noi.patsin@gmail.com',
+      subject: 'Sending reset password token with SendGrid is Fun',
+      text: 'and easy to reset password andtime, even with Node.js',
+      html: resetURL,
+    }
+
+    const emailMsg = await sgMail.send(msg)
+    res.json({
+      msg: `The link to reset your password has been sent to ${user?.email}. Please reset your password within 10 minutes, ${resetURL}`,
+    })
+    // res.json(emailMsg)
+    // res.send('Hey! check your email to reset password')
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+// === Password reset ===
+const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
+  // get token from request body
+  const { token, password } = req.body
+  //get hashed token
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+
+  // find user passwordResetToken by the hashed token
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: new Date() },
+  })
+
+  if (!user) throw new Error('Token is expired, Please try again later')
+
+  // update the password
+  user.password = password
+  user.passwordResetToken = undefined
+  user.passwordResetExpires = undefined
+
+  await user.save()
+
+  res.json(user)
+})
+
 module.exports = {
   userRegisterCtrl,
   userLoginCtrl,
@@ -331,4 +400,6 @@ module.exports = {
   unBlockUserCtrl,
   generateEmailVerificationTokenCtrl,
   accountVerificationCtrl,
+  forgetPasswordTokenCtrl,
+  passwordResetCtrl,
 }
