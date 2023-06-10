@@ -42,9 +42,8 @@ const profilePhotoResize = async (req, res, next) => {
 
 //=== PostImage resizing ===
 const postImageResize = async (req, res, next) => {
-  //check if there is no file to resize
+  //check if there is no file
   if (!req.file) return next()
-
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`
 
   await sharp(req.file.buffer)
@@ -53,8 +52,6 @@ const postImageResize = async (req, res, next) => {
     .jpeg({ quality: 90 })
     .toFile(path.join(`public/images/posts/${req.file.filename}`))
   next()
-
-  console.log('Resize:- ', req.file)
 }
 
 module.exports = { photoUpload, profilePhotoResize, postImageResize }
