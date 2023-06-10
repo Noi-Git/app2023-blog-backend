@@ -6,6 +6,7 @@ const validateMongodbId = require('../../utils/validateMongodbID')
 const User = require('../../model/user/User')
 const cloudinaryUploadImg = require('../../utils/cloudinary')
 
+//=== Create Post ===
 const createPostCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file)
   const { _id } = req.user
@@ -42,4 +43,9 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createPostCtrl }
+//=== Fetch All Post ===
+const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('fetch post')
+})
+
+module.exports = { createPostCtrl, fetchPostCtrl }
