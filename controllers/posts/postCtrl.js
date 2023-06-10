@@ -45,7 +45,10 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch All Post ===
 const fetchAllPostsCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('fetch post')
+  try {
+    const posts = await Post.find({})
+    res.json(posts)
+  } catch (error) {}
 })
 
 module.exports = { createPostCtrl, fetchAllPostsCtrl }
