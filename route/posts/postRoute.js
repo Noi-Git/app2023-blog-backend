@@ -17,5 +17,6 @@ postRoute.post(
   postImageResize,
   createPostCtrl
 )
+postRoute.get('/', fetchAllPostsCtrl)
 
 module.exports = postRoute
