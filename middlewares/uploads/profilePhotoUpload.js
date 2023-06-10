@@ -17,7 +17,7 @@ const multerFilter = (req, file, cb) => {
   }
 }
 
-const profilePhotoUpload = multer({
+const photoUpload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
   limits: { fileSize: 1000000 }, //1 MB
@@ -40,4 +40,4 @@ const profilePhotoResize = async (req, res, next) => {
   console.log('Resize:- ', req.file)
 }
 
-module.exports = { profilePhotoUpload, profilePhotoResize }
+module.exports = { photoUpload, profilePhotoResize }
