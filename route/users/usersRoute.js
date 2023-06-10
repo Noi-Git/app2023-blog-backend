@@ -22,7 +22,7 @@ const authMiddleware = require('../../middlewares/auth/authMiddleware')
 const {
   photoUpload,
   profilePhotoResize,
-} = require('../../middlewares/uploads/profilePhotoUpload')
+} = require('../../middlewares/uploads/photoUpload')
 const usersRoutes = express.Router()
 
 usersRoutes.post('/register', userRegisterCtrl)
