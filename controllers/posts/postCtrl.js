@@ -10,7 +10,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   validateMongodbId(req.body.user)
   // check for bad words
   const filter = new Filter()
-  const isProfane = filter.isProfane(req.body.title, req, body.description)
+  const isProfane = filter.isProfane(req.body.title, req.body.description)
   // console.log(isProfane)
 
   //Block user
