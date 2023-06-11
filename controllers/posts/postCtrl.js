@@ -86,6 +86,7 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
       id,
       {
         ...req.body,
+        user: req.user?._id,
       },
       { new: true }
     )
