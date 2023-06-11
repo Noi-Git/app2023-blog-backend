@@ -57,7 +57,7 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id)
 
   try {
-    const post = await Post.findById(id)
+    const post = await Post.findById(id).populate('username')
     res.json(post)
   } catch (error) {
     res.json(error)
