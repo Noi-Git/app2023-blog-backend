@@ -86,7 +86,7 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
       id,
       {
         ...req.body,
-        user: req.user?._id,
+        user: req.user?.id,
       },
       { new: true }
     )
@@ -96,9 +96,15 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+//=== Delete posts ===
+const deletePostCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('delete')
+})
+
 module.exports = {
   createPostCtrl,
   fetchAllPostsCtrl,
   fetchPostCtrl,
   updatePostCtrl,
+  deletePostCtrl,
 }
