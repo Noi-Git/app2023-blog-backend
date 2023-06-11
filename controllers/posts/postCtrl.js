@@ -76,6 +76,9 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Update posts ===
 const updatePostCtrl = expressAsyncHandler(async (req, res) => {
+  // console.log(req.params.id)
+  const { id } = req.params
+  validateMongodbId(id)
   res.json('update post')
 })
 
