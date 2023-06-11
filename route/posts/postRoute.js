@@ -21,6 +21,6 @@ postRoute.post(
 )
 postRoute.get('/', fetchAllPostsCtrl)
 postRoute.get('/:id', fetchPostCtrl)
-postRoute.put('/:id', updatePostCtrl)
+postRoute.put('/:id', authMiddleware, updatePostCtrl)
 
 module.exports = postRoute
