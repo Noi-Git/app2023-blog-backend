@@ -79,7 +79,19 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
   // console.log(req.params.id)
   const { id } = req.params
   validateMongodbId(id)
-  res.json('update post')
+
+  try {
+    const post = await Post.findByIdAndUpdate(
+      id,
+      {
+        ...req.body,
+      },
+      { new: true }
+    )
+    res.json(post)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = {
