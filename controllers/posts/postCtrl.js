@@ -51,4 +51,9 @@ const fetchAllPostsCtrl = expressAsyncHandler(async (req, res) => {
   } catch (error) {}
 })
 
+//=== Fetch a Single Post ===
+const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('fetch a single post')
+})
+
 module.exports = { createPostCtrl, fetchAllPostsCtrl }
