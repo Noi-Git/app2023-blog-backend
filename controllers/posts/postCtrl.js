@@ -10,7 +10,7 @@ const cloudinaryUploadImg = require('../../utils/cloudinary')
 const createPostCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file)
   const { _id } = req.user
-  validateMongodbId(req.body.user)
+  // validateMongodbId(req.body.user)
   //Check for bad words
   const filter = new Filter()
   const isProfane = filter.isProfane(req.body.title, req.body.description)
@@ -25,7 +25,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 
   //1. Get the oath to img
-  const localPath = `public/images/posts/${req.file.filename}`
+  const localPath = `public/images/profile/${req.file.filename}`
   //2.Upload to cloudinary
   const imgUploaded = await cloudinaryUploadImg(localPath)
   try {
@@ -53,6 +53,8 @@ const fetchAllPostsCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch a Single Post ===
 const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+  validateMongodbId(id)
   res.json('fetch a single post')
 })
 
