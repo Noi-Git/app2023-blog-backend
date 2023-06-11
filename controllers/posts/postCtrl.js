@@ -110,10 +110,16 @@ const deletePostCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+//=== Likes posts ===
+const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('Likes')
+})
+
 module.exports = {
   createPostCtrl,
   fetchAllPostsCtrl,
   fetchPostCtrl,
   updatePostCtrl,
   deletePostCtrl,
+  toggleAddLikeToPostCtrl,
 }
