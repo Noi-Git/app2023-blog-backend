@@ -57,11 +57,19 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id)
 
   try {
-    const post = await Post.findById(id).populate('username')
+    const post = await Post.findById(id).populate('user')
+
+    //update number of views
+    await Post.findByIdAndUpdate(id, {
+      $inc: { numViews: 1 },
+    })
+
     res.json(post)
   } catch (error) {
     res.json(error)
   }
 })
+
+//=== Fetch a Single Post ===
 
 module.exports = { createPostCtrl, fetchAllPostsCtrl, fetchPostCtrl }
