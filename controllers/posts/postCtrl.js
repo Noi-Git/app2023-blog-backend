@@ -56,4 +56,4 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   res.json('fetch a single post')
 })
 
-module.exports = { createPostCtrl, fetchAllPostsCtrl }
+module.exports = { createPostCtrl, fetchAllPostsCtrl, fetchPostCtrl }
