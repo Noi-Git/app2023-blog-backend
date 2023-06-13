@@ -200,6 +200,17 @@ const toggleAddDisLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
     )
     res.json(post)
   }
+  //toggle -- remove the user from disLiked array
+  if (isDisLiked) {
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $pull: { disLikes: loginUserId },
+        isDisLiked: false,
+      },
+      { new: true }
+    )
+  }
 })
 
 module.exports = {
