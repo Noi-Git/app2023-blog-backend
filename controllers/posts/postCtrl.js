@@ -142,7 +142,13 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
     res.json(post)
   }
 
-  // Toggle likes and dislinks
+  // Toggle likes
+  if (isLiked) {
+    const post = await Post.findByIdAndUpdate(postId, {
+      $pull: { likes: loginUserId },
+      isLiked: false,
+    })
+  }
 })
 
 module.exports = {
