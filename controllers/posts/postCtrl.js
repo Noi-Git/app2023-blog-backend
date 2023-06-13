@@ -166,6 +166,11 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+//=== disLikes posts ===
+const toggleAddDisLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('dislikes')
+})
+
 module.exports = {
   createPostCtrl,
   fetchAllPostsCtrl,
@@ -173,4 +178,5 @@ module.exports = {
   updatePostCtrl,
   deletePostCtrl,
   toggleAddLikeToPostCtrl,
+  toggleAddDisLikeToPostCtrl,
 }
