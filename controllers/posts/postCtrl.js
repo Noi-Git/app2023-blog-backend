@@ -168,7 +168,24 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== disLikes posts ===
 const toggleAddDisLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('dislikes')
+  // res.json('dislikes')
+
+  //1. find the post to be disliked
+  const { postId } = req.body
+  // find post
+  const post = await Post.findById(postId)
+  res.json(post)
+
+  //2. find the login user
+  const loginUserId = req?.user?._id
+
+  //3. check if user already disliked
+  const isDisLiked = post?.isDisLiked
+
+  //4. check if user alreday like the post
+  const alreadyLiked = post?.likes.find(
+    (userId) => userId?.toString() === loginUserId?.toString()
+  )
 })
 
 module.exports = {
