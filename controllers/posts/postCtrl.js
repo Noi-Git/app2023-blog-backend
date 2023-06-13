@@ -115,12 +115,18 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
   const { postId } = req.body
   const post = await Post.findById(postId)
 
-  //find the login user
+  // find the login user
   const loginUserId = req?.user?._id
 
   // find if user has liked the post
   const isLiked = post?.isLiked
-  console.log(isLiked)
+  // console.log(isLiked)
+
+  // check if user dislikes the post
+  const alreadyDisliked = post?.disLikes?.find(
+    (userId) => userId?.toString() === loginUserId?.toString()
+  )
+
   res.json(post)
 })
 
