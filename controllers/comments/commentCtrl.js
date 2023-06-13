@@ -48,4 +48,14 @@ const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createCommentCtrl, fetchAllCommentsCtrl, fetchCommentCtrl }
+//=== Update Comment ===
+const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('update')
+})
+
+module.exports = {
+  createCommentCtrl,
+  fetchAllCommentsCtrl,
+  fetchCommentCtrl,
+  updateCommentCtrl,
+}
