@@ -57,7 +57,7 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id)
 
   try {
-    const post = await Post.findById(id).populate('user')
+    const post = await Post.findById(id).populate('user').populate('disLikes')
 
     //update number of views
     await Post.findByIdAndUpdate(
