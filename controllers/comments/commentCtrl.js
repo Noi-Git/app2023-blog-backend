@@ -37,4 +37,13 @@ const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createCommentCtrl, fetchAllCommentsCtrl }
+//=== Fetch a single Comment ===
+const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
+  try {
+    res.json('single comment')
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+module.exports = { createCommentCtrl, fetchAllCommentsCtrl, fetchCommentCtrl }
