@@ -7,6 +7,6 @@ const authMiddleware = require('../../middlewares/auth/authMiddleware')
 
 const commentRoute = express.Router()
 commentRoute.post('/', authMiddleware, createCommentCtrl)
-commentRoute.get('/', fetchAllCommentsCtrl)
+commentRoute.get('/', authMiddleware, fetchAllCommentsCtrl)
 
 module.exports = commentRoute
