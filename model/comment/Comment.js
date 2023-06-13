@@ -9,8 +9,7 @@ const commentSchema = new mongoose.Schema({
   },
   //One to Many relationship -- one user can create manny comments
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: Object,
     required: [true, 'User is required'], //custom message
   },
 })
