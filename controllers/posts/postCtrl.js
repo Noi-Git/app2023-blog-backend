@@ -210,6 +210,19 @@ const toggleAddDisLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     )
+    res.json(post)
+  } else {
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $push: { disLikes: loginUserId },
+        isDisLiked: true,
+      },
+      {
+        new: true,
+      }
+    )
+    res.json(post)
   }
 })
 
