@@ -1,5 +1,6 @@
 const expressAsyncHandler = require('express-async-handler')
 const Comment = require('../../model/comment/Comment')
+const validateMongodbId = require('../../utils/validateMongodbID')
 
 //=== Create comment ===
 const createCommentCtrl = expressAsyncHandler(async (req, res) => {
@@ -72,7 +73,14 @@ const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Delete Comment ===
 const deleteCommentCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('delete')
+  const { id } = req.params
+  validateMongodbId(id)
+  try {
+    const comment = await Comment.findByIdAndDelete(id)
+    res.json(comment)
+  } catch (error) {
+    res.json(error)
+  }
 })
 module.exports = {
   createCommentCtrl,
