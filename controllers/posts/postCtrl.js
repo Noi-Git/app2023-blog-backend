@@ -126,8 +126,23 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
   const alreadyDisliked = post?.disLikes?.find(
     (userId) => userId?.toString() === loginUserId?.toString()
   )
+  // console.log(alreadyDisliked)
 
-  res.json(post)
+  // if user is in disLikes array -- remove it
+  if (alreadyDisliked) {
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        // $pull = remove data from the array -- it is mongoDB property
+        $pull: { disLikes: loginUserId },
+        isDisLiked: false,
+      },
+      { new: true }
+    )
+    res.json(post)
+  }
+
+  // Toggle likes and dislinks
 })
 
 module.exports = {
