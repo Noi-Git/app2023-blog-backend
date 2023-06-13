@@ -112,7 +112,16 @@ const deletePostCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Likes posts ===
 const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('Likes')
+  const { postId } = req.body
+  const post = await Post.findById(postId)
+
+  //find the login user
+  const loginUserId = req?.user?._id
+
+  // find if user has liked the post
+  const isLiked = post?.isLiked
+  console.log(isLiked)
+  res.json(post)
 })
 
 module.exports = {
