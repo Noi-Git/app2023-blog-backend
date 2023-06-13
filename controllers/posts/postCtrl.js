@@ -25,7 +25,8 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 
   //1. Get the oath to img
-  const localPath = `public/images/profile/${req.file.filename}`
+  const localPath = `public/images/profile/${req.path.filename}`
+
   //2.Upload to cloudinary
   const imgUploaded = await cloudinaryUploadImg(localPath)
   try {
