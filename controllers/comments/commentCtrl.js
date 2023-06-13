@@ -41,6 +41,7 @@ const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
 //=== Fetch a single Comment ===
 const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
+  validateMongodbId(id)
   try {
     const comment = await Comment.findById(id)
     res.json(comment)
@@ -52,6 +53,7 @@ const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
 //=== Update Comment ===
 const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params //use .params because we need to pass in the /:id when calling update route
+  validateMongodbId(id)
   console.log(id)
   try {
     const update = await Comment.findByIdAndUpdate(
