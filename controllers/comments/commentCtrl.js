@@ -70,9 +70,14 @@ const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
   res.json('update')
 })
 
+//=== Delete Comment ===
+const deleteCommentCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('delete')
+})
 module.exports = {
   createCommentCtrl,
   fetchAllCommentsCtrl,
   fetchCommentCtrl,
   updateCommentCtrl,
+  deleteCommentCtrl,
 }
