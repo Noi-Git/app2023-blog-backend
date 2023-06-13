@@ -153,6 +153,16 @@ const toggleAddLikeToPostCtrl = expressAsyncHandler(async (req, res) => {
       { new: true }
     )
     res.json(post)
+  } else {
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $push: { likes: loginUserId },
+        isLiked: true,
+      },
+      { new: true }
+    )
+    res.json(post)
   }
 })
 
