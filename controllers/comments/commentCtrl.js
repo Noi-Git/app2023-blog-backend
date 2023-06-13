@@ -54,7 +54,7 @@ const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
 const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params //use .params because we need to pass in the /:id when calling update route
   validateMongodbId(id)
-  console.log(id)
+  // console.log(id)
   try {
     const update = await Comment.findByIdAndUpdate(
       id,
