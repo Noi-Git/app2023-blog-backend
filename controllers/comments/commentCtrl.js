@@ -39,8 +39,10 @@ const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch a single Comment ===
 const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
   try {
-    res.json('single comment')
+    const comment = await Comment.findById(id)
+    res.json(comment)
   } catch (error) {
     res.json(error)
   }
