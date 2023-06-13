@@ -50,6 +50,23 @@ const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Update Comment ===
 const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params //use .params because we need to pass in the /:id when calling update route
+  console.log(id)
+  try {
+    const update = await Comment.findByIdAndUpdate(
+      id,
+      {
+        post: req.body?.postId,
+        user: req?.user,
+        description: req?.body?.description,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+    res.json(update)
+  } catch (error) {}
   res.json('update')
 })
 
