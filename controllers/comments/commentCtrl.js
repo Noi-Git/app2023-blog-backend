@@ -29,7 +29,12 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
 
 //=== Fetch All Comments ===
 const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
-  res.json('send comment list')
+  try {
+    const comments = await Comment.find({}).sort('-created') //find comments and sort them by ascending order
+    res.json(comments)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = { createCommentCtrl, fetchAllCommentsCtrl }
