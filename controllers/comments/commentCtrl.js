@@ -1,6 +1,7 @@
 const expressAsyncHandler = require('express-async-handler')
 const Comment = require('../../model/comment/Comment')
 
+//=== Create comment ===
 const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   //1. get user
   // console.log(req.user) //we have access to the user because we logins
@@ -26,4 +27,9 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   res.json('Create comment')
 })
 
-module.exports = { createCommentCtrl }
+//=== Fetch All Comments ===
+const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
+  res.json('send comment list')
+})
+
+module.exports = { createCommentCtrl, fetchAllCommentsCtrl }
