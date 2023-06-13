@@ -107,6 +107,14 @@ const UserSchema = new mongoose.Schema(
   }
 )
 
+//=== Virtual method to populate created post ===
+//-- attatch user post to virtuals objects
+UserSchema.virtual('posts', {
+  ref: 'Post', //reference to post model
+  foreignField: 'user', //'user' has to be the same as #42 in post model user: {}
+  localField: '_id',
+})
+
 // === custom middleware to handle hashing password
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
