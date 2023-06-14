@@ -14,4 +14,12 @@ const createCategoryCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createCategoryCtrl }
+const fetchAllCateroriesCtrl = expressAsyncHandler(async (req, res) => {
+  try {
+    res.json('fetch all categories')
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+module.exports = { createCategoryCtrl, fetchAllCateroriesCtrl }
