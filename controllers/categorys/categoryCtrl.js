@@ -16,7 +16,10 @@ const createCategoryCtrl = expressAsyncHandler(async (req, res) => {
 
 const fetchAllCateroriesCtrl = expressAsyncHandler(async (req, res) => {
   try {
-    res.json('fetch all categories')
+    const categories = await Category.find({})
+      .populate('user')
+      .sort('-createdAt') //use populate to fetch actual user
+    res.json(categories)
   } catch (error) {
     res.json(error)
   }

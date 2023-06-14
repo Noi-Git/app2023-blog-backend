@@ -8,6 +8,6 @@ const {
 const categoryRoute = express.Router()
 
 categoryRoute.post('/', authMiddleware, createCategoryCtrl)
-categoryRoute.get('/', fetchAllCateroriesCtrl)
+categoryRoute.get('/', authMiddleware, fetchAllCateroriesCtrl)
 
 module.exports = categoryRoute
