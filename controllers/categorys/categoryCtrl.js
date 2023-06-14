@@ -37,8 +37,39 @@ const fetchCategoryCtrl = expressAsyncHandler(async (req, res) => {
   }
 })
 
+const updateCategoryCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+  try {
+    const category = await Category.findByIdAndUpdate(
+      id,
+      {
+        title: req?.body?.title,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+    res.json(category)
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+const deleteCategoryCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
+  try {
+    const category = await Category.findByIdAndDelete(id)
+    res.json(category)
+  } catch (error) {
+    res.json(error)
+  }
+})
+
 module.exports = {
   createCategoryCtrl,
   fetchAllCateroriesCtrl,
   fetchCategoryCtrl,
+  updateCategoryCtrl,
+  deleteCategoryCtrl,
 }
