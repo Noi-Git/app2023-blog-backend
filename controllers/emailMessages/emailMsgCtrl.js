@@ -8,8 +8,13 @@ const sendEmailMsgCtrl = expressAsyncHandler(async (req, res) => {
     const msg = {
       to,
       subject,
-      message,
+      text: message,
+      from: 'noi.patsin@gmail.com',
     }
+
+    //send message
+    await sgMail.send(msg)
+    res.json('Mail Sent')
   } catch (error) {
     res.json(error)
   }
