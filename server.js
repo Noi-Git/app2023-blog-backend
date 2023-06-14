@@ -21,7 +21,7 @@ app.use(express.json())
 app.use('/api/users', usersRoutes)
 app.use('/api/posts', postRoute)
 app.use('/api/comments', commentRoute)
-app.use('/api/comments', email)
+app.use('/api/emails', emailMsgRoute)
 
 /* ==== call errorHandler below all your routes === */
 app.use(notFound) //need to be before (errorHandler) because of next()
