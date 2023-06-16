@@ -1,0 +1,152 @@
+swagger: '2.0'
+info:
+  title: 'Noi Sinnang - Blog App'
+  description: 'This is the blog API created with NodeJS and ExpressJS and documented with Swaggger!!'
+  version: '1.0.0'
+  contact:
+    email: 'sinnang.noi@gmail.com'
+  server:
+    url: 'http://localhost:5001/'
+    description: 'This is local server'
+schemes: ['http', 'https']
+
+paths:
+  /api/users/register:
+    post:
+      summary: 'Register user'
+      description: 'Allow user to register'
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            type: 'object'
+            properties:
+              firstName:
+                type: 'string'
+              lastName:
+                type: 'string'
+              email:
+                type: 'string'
+              password:
+                type: 'string'
+        '400':
+          description: 'User Error'
+        '500':
+          description: 'Internal Server Error'
+
+  /api/users/login:
+    post:
+      summary: 'User login'
+      description: 'Allow user to login'
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            type: 'object'
+            properties:
+              email:
+                type: 'string'
+              password:
+                type: 'string'
+  /api/users/:
+    get:
+      summary: 'Fetch All Users'
+      description: 'Fetch all user from the database'
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                _id:
+                  type: 'integer'
+                firstName:
+                  type: 'string'
+                lastName:
+                  type: 'string'
+                profilePhoto: 
+                  type: type: 'string'
+                email:
+                  type: 'string'
+                password:
+                  type: 'string'
+                postCount:
+                  type: 'integer'
+                isBlocked:
+                  type: 'boolean'
+                isAdmin:
+                  type: 'boolean'
+                isFollowing:
+                  type: 'boolean'
+                isUnFollowing:
+                  type: 'boolean'
+                isAccountVerified:
+                  type: 'boolean'
+                viewedBy:
+                  type: 'array'
+                followers:
+                  type: 'array'
+                following:
+                  type: 'array'
+                active:
+                  type: 'boolean'
+                createdAt:
+                  type: 'Date'
+                updatedAt:
+                  type: 'Date'
+  /api/users/profile/{:id}:
+    get:
+      summary: 'Fetch A Single User'
+      description: 'Fetch a single user from the database'
+      parameters:
+        name: 'id'
+        in: path
+        required: 'true'
+        schema:
+          type: 'integer'
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                _id:
+                  type: 'integer'
+                firstName:
+                  type: 'string'
+                lastName:
+                  type: 'string'
+                profilePhoto: 
+                  type: type: 'string'
+                email:
+                  type: 'string'
+                password:
+                  type: 'string'
+                postCount:
+                  type: 'integer'
+                isBlocked:
+                  type: 'boolean'
+                isAdmin:
+                  type: 'boolean'
+                isFollowing:
+                  type: 'boolean'
+                isUnFollowing:
+                  type: 'boolean'
+                isAccountVerified:
+                  type: 'boolean'
+                viewedBy:
+                  type: 'array'
+                followers:
+                  type: 'array'
+                following:
+                  type: 'array'
+                active:
+                  type: 'boolean'
+                createdAt:
+                  type: 'Date'
+                updatedAt:
+                  type: 'Date'
